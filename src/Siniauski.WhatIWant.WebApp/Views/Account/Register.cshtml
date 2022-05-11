@@ -1,0 +1,75 @@
+﻿@model RegisterViewModel
+
+@{
+    ViewData["Title"] = "Регистрация";
+    Layout = "_Layout";
+}
+
+<div class="text-center">
+    <h3>Регистрация</h3>
+</div>
+
+
+@if (ViewBag.Messages != null)
+{
+    <div class="container mt-4" style="max-width: 400px">
+        @foreach (string s in (string[])ViewBag.Messages)
+        {
+            <div class="row">
+                <h4 class="badge bg-danger text-wrap m-1" style="font-size: 15px">@s</h4>
+            </div>
+        }
+    </div>
+}
+
+<div class="d-flex justify-content-center my-4">
+    <form class="border rounded-3S bg-light p-3" style="width: 500px" method="post" asp-controller="Account" asp-action="Register" asp-antiforgery="true">
+        <div asp-validation-summary="ModelOnly"></div>
+        <div class="row form-floating m-3">
+            <input type="text" class="form-control" id="inputFirstName" asp-for="FirstName">
+            <label for="inputFirstName">Имя</label>
+        </div>
+        <div class="row form-floating m-3">
+            <input type="text" class="form-control" id="inputLastName" asp-for="LastName">
+            <label for="inputLastName">Фамилия</label>
+        </div>
+        <div class="row form-floating m-3">
+            <input type="text" class="form-control" id="inputUserName" asp-for="Login">
+            <label for="inputUserName">Логин (используется для входа в систему)</label>
+        </div>
+        <div class="row form-floating m-3">
+            <input type="password" class="form-control" id="inputPassword" asp-for="Password">
+            <label for="inputPassword">Пароль</label>
+        </div>
+        <div class="row form-floating m-3">
+            <input type="password" class="form-control" id="inputConfirmPassword" asp-for="ConfirmPassword">
+            <label for="inputConfirmPassword">Подтверждение пароля</label>
+        </div>
+        <div class="row form-floating m-3">
+            <input type="email" class="form-control" id="inputEmail" asp-for="Email">
+            <label for="inputEmail">Email</label>
+        </div>
+        <div class="row form-floating m-3">
+            <input type="tel" class="form-control" id="inputPhoneNumber" asp-for="PhoneNumber">
+            <label for="inputPhoneNumber">Телефонный номер</label>
+        </div>
+        <div class="row align-items-center me-3">
+            <div class="col-9">
+                <div class="form-floating ms-3 me-0">
+                    <input type="text" readonly="readonly" class="form-control" id="inputAvatar" asp-for="Avatar">
+                    <input id="avatarServerName" style="display:none" asp-for="AvatarServerName">
+                    <label for="inputAvatar">Аватар</label>
+                </div>
+            </div>
+            <div class="col-3">
+                <label id="BrowseImage" class="btn bln-lg btn-secondary">Выбрать</label>
+            </div>
+        </div>
+        <div class="row form-floating m-3">
+            <input type="date" class="form-control" id="inputBirthDate" asp-for="BirthDate">
+            <label for="inputBirthDate">Дата рождения</label>
+        </div>
+
+        <button class="w-100 btn btn-lg btn-primary" type="submit">Зарегистрироваться</button>
+    </form>
+</div>

@@ -1,0 +1,83 @@
+﻿@model UserListViewModel
+
+<div class="d-flex flex-column align-items-center">
+    <div class="row">
+        <div class="col-12">
+             <h2 id="Title" class="text-center mb-4 mt-4 mt-lg-0">...</h2>
+        </div>
+    </div>
+    @foreach (var user in @Model.UsersInfoResponse.Users)
+    {
+        <div class="user-card m-3 p-3" style="max-width: 700px;">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12 col-sm-4">
+                        <div class="avatar">
+                            @if (@user.Avatar != null)
+                            {
+                                <img src="~/img/Avatars/@user.Avatar" alt="Avatar">
+                            }
+                            else
+                            {
+                                <img src="~/img/photoBase.png" alt="Avatar">
+                            }
+                        </div>
+                    </div>
+                    @*class="img-fluid rounded-start flex-shrink-0"*@
+                    <div class="col-12 col-sm-1"></div>
+                    <div class="col-12 col-sm-7">
+                        <div class="d-flex flex-column">
+                            <h3 class="card-title">@user.FirstName @user.LastName (@user.UserName)</h3>
+                            <h5 class="card-text">Email: @user.Email</h5>
+                            @if (!string.IsNullOrEmpty(@user.PhoneNumber))
+                            {
+                                <h5 class="card-text">Телефонный номер: @user.PhoneNumber</h5>
+                            }
+                            @if (@user.BirthDate != null)
+                            {
+                                <h5 class="card-text">Дата рождения: @user.BirthDate.Value.ToShortDateString()</h5>
+                            }
+                            <div class="d-flex align-items-end mt-4 mb-2">
+                                @if (@user.HasIncomingInvite && @user.HasOutgoingInvite)
+                                {
+                                    <button id="FriendButton_@user.Id" class="btn btn-lg btn-friend-action-delete">Удалить из друзей</button>
+                                }
+                                @if (@user.HasIncomingInvite && !@user.HasOutgoingInvite)
+                                {
+                                    <button id="FriendButton_@user.Id" class="btn btn-lg btn-friend-action-accept">Принять приглашение</button>
+                                }
+                                @if (!@user.HasIncomingInvite && @user.HasOutgoingInvite)
+                                {
+                                    <button id="FriendButton_@user.Id" class="btn btn-lg btn-friend-action-cancel">Отменить приглашение</button>
+                                }
+                                @if (!@user.HasIncomingInvite && !@user.HasOutgoingInvite)
+                                {
+                                    <button id="FriendButton_@user.Id" class="btn btn-lg btn-friend-action-send">Добавить в друзья</button>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="modalMessage" tabindex="-1" aria-labelledby="modalMessageLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalMessageLabel">Сообщение</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div id="modalMessageText" class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                @*<button type="button" class="btn btn-primary">Understood</button>*@
+            </div>
+        </div>
+    </div>
+</div>

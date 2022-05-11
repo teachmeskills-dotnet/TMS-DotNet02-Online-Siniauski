@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - WHAT I WANT</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Siniauski.WhatIWant.WebApp.styles.css" asp-append-version="true" />
+</head>
+<body style="min-width: 500px">
+    <header>
+        <nav class="navbar navbar-dark bg-dark border-bottom box-shadow">
+            <div class="container-fluid justify-content-end">
+                <a class="navbar-brand me-auto" style="font-size: 25px" asp-area="" asp-controller="Home" asp-action="Index">
+                    <img src="~/img/giftBrand.png" width="30" height="30" class="d-inline-block align-text-top mx-3">
+                    WHAT I WANT
+                </a>
+                <form method="post" asp-controller="Account" asp-action="Logout">
+                    <button class="btn btn-lg btn-danger mx-2 my-1" type="submit">Выход</button>
+                </form>
+            </div>
+        </nav>
+    </header>
+    <main role="main" class="p-5">
+        <div class="container-fluid">
+            <div class="row">                
+                <div class="col-lg-4">
+                    <div class="accordion" id="accordionMenu">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    Друзья
+                                </button>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne">
+                                <div class="accordion-body">
+                                    <button id="MyFriendsButton" class="btn w-100 m-0 p-0">Мои друзья</button>
+                                    <button id="SearchFriendsButton" class="btn w-100 m-0 p-0">Поиск друзей</button>
+                                    <button id="OutgoingInviteFriendsButton" class="btn w-100 m-0 p-0">Исходящие заявки</button>
+                                    <button id="IncomingInviteFriendsButton" class="btn w-100 m-0 p-0">Входящие заявки</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingTwo">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    Желания
+                                </button>
+                            </h2>
+                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo">
+                                <div class="accordion-body">
+                                    <button id="MyWishesButton" class="btn w-100 m-0 p-0">Мои желания</button>
+                                    <button id="FriendsWishesButton" class="btn w-100 m-0 p-0">Желания друзей</button>
+                                    <button id="UnfulfilledWishesButton" class="btn w-100 m-0 p-0">Неисполненные желания</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="BodyList" class="col-lg-8">
+                    @RenderBody()
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="footer border-top text-muted">
+        <div class="container text-center pt-2" style="font-size:20px;">
+            &copy; 2022 - What I Want, <a href="https://github.com/andsin811">andsin811</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

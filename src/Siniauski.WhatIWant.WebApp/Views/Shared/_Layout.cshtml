@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - WHAT I WANT</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Siniauski.WhatIWant.WebApp.styles.css" asp-append-version="true" />
+</head>
+<body style="min-width: 500px">
+    <header>
+        <nav class="navbar navbar-dark bg-dark border-bottom box-shadow">
+            <div class="container-fluid justify-content-end">
+                <a class="navbar-brand me-auto" style="font-size: 25px" asp-area="" asp-controller="Home" asp-action="Index">
+                    <img src="~/img/giftBrand.png" width="30" height="30" class="d-inline-block align-text-top mx-3">
+                    WHAT I WANT
+                </a>
+                <form method="get" asp-controller="Account" asp-action="Register">
+                    <button class="btn btn-primary btn-lg mx-2 my-1" type="submit">Регистрация</button>
+                </form>
+                <form method="get" asp-controller="Account" asp-action="Login">
+                    <button class="btn btn-success btn-lg mx-2 my-1" type="submit">Вход</button>
+                </form>
+            </div>
+        </nav>
+    </header>
+
+    <main role="main" class="p-5">
+        @RenderBody()
+    </main>
+    <footer class="footer border-top text-muted">
+        <div class="container text-center mt-2" style="font-size:20px;">
+            &copy; 2022 - What I Want, <a href="https://github.com/andsin811">andsin811</a>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
