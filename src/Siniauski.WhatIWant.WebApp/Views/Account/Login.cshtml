@@ -1,0 +1,37 @@
+﻿@model LoginViewModel
+
+@{
+    ViewData["Title"] = "Вход";
+    Layout = "_Layout";
+}
+
+<div class="text-center">
+    <h3>Вход</h3>
+</div>
+
+@if (ViewBag.Messages != null)
+{
+    <div class="container mt-4" style="max-width: 400px">
+        @foreach (string s in (string[])ViewBag.Messages)
+        {
+            <div class="row">
+                <h4 class="badge bg-danger text-wrap m-1" style="font-size: 15px">@s</h4>
+            </div>
+        }
+    </div>
+}
+
+<div class="d-flex justify-content-center my-4">
+    <form class="border rounded-3S bg-light p-3" style="width: 450px" method="post" asp-controller="Account" asp-action="Login" asp-antiforgery="true">
+        <div asp-validation-summary="ModelOnly"></div>
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="InputLogin" asp-for="Login">
+            <label for="InputLogin">Логин</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="password" class="form-control" id="InputPassword" asp-for="Password">
+            <label for="InputPassword">Пароль</label>
+        </div>
+        <button class="w-100 btn btn-lg btn-primary" type="submit">Войти</button>
+    </form>
+</div>

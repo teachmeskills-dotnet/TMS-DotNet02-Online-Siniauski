@@ -1,0 +1,129 @@
+﻿@model WishListViewModel
+
+<div class="d-flex flex-column align-items-center">
+
+    <div class="container" style="max-width: 700px;">
+        <div class="row">
+            <div class="col-12">
+                @switch (@Model.WishesInfoType)
+                {
+                    case "My":
+                        {
+                            <h2 class="text-center mb-4 mt-4 mt-lg-0">Мои желания</h2>
+                            break;
+                        }
+                    case "Friends":
+                        {
+                            <h2 class="text-center mb-4 mt-4 mt-lg-0">Желания друзей</h2>
+                            break;
+                        }
+                    case "Unfulfilled":
+                        {
+                            <h2 class="text-center mb-4 mt-4 mt-lg-0">Неисполненные желания</h2>
+                            break;
+                        }
+                }
+            </div>
+        </div>
+
+        @if (@Model.WishesInfoType == "My")
+        {
+            <div class="row">
+                <div class="col-12">
+                    <button id="AddNewWish" class="btn btn-lg btn-primary w-100 mb-3">Создать новое желание</button>
+                </div>
+            </div>
+        }
+        @foreach (var wish in @Model.WishesInfoResponse.Wishes)
+        {
+            <div class="row">
+                <div class="user-card my-3 p-0 p-lg-2">
+                    <div class="container-fluid">
+                        <div class="d-flex flex-column">
+                            <div class="card-body">
+                                <h3 class="card-title">@wish.Name</h3>
+                                <h5 class="card-text">@wish.Description</h5>
+
+                                @if (wish.WhoCreate != null)
+                                {
+                                    <h5 class="card-text text-primary">Владелец: @wish.WhoCreate.FirstName @wish.WhoCreate.LastName (@wish.WhoCreate.UserName)</h5>
+                                }
+
+                                @if (wish.WhoBlocked != null)
+                                {
+                                    <h5 class="card-text text-danger">Заблокировано пользователем: @wish.WhoBlocked.FirstName @wish.WhoBlocked.LastName (@wish.WhoBlocked.UserName)</h5>
+                                }
+                                <div class="d-flex flex-row-reverse mt-4 mb-2">
+                                    @switch (@Model.WishesInfoType)
+                                    {
+                                        case "My":
+                                            {
+                                                <button id="MyWishDelete_@wish.Id" class="btn btn-lg btn-danger ms-2">Удалить</button>
+                                                @if (@wish.IsDone)
+                                                {
+                                                    <button id="MyWishDone_@wish.Id" disabled class="btn btn-lg btn-secondary">Исполнено</button>
+                                                }
+                                                else
+                                                {
+                                                    <button id="MyWishSetAsDone_@wish.Id" class="btn btn-lg btn-success">Пометить как исполненное</button>
+                                                }
+                                                break;
+                                            }
+                                        case "Friends":
+                                            {
+                                                @if (@wish.IsDone)
+                                                {
+                                                    <button disabled class="btn btn-lg btn-secondary">Исполнено</button>
+                                                }
+                                                else
+                                                {
+                                                    @if (@wish.WhoBlocked == null)
+                                                    {
+                                                        <button id="FriendsWishBlock_@wish.Id" class="btn btn-lg btn-wish-action-block">Исполнить</button>
+                                                    }
+                                                    else
+                                                    {
+                                                        @if (@wish.WhoBlocked.Id == @Model.MyId)
+                                                        {
+                                                            <button id="FriendsWishBlock_@wish.Id" class="btn btn-lg btn-wish-action-unblock">Отказаться от исполнения</button>
+                                                        }
+                                                    }
+                                                }
+
+                                                break;
+                                            }
+                                        case "Unfulfilled":
+                                            {
+                                                <button id="FriendsWishBlock_@wish.Id" class="btn btn-lg btn-wish-action-unblock">Отказаться от исполнения</button>
+                                                break;
+                                            }
+                                    }
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="modalMessage" tabindex="-1" aria-labelledby="modalMessageLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalMessageLabel">Сообщение</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div id="modalMessageText" class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                @*<button type="button" class="btn btn-primary">Understood</button>*@
+            </div>
+        </div>
+    </div>
+</div>
